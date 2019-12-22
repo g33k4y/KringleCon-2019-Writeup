@@ -13,7 +13,7 @@ td:lr Answer: **ntdsutil**
 
 First let's visit SugarPlum Mary at Hermey Hall for the hint.
 
-He wants to get a listing of files in his `home/` directory using `ls` command, but the command does not work. Seems like the real `ls` command is missing.
+She wants to get a listing of files in her `home/` directory using `ls` command, but the command does not work. Seems like the real `ls` command is missing.
 
 hint given for this sub-problem:
 
@@ -40,10 +40,11 @@ The fake `ls` command is found at `/usr/local/bin/ls`.
 
 interesting, there's a hidden folder `.things/` at the same location, we should look within.
 
-`cd /usr/local/bin/.things/` without pressing <enter>, press <tab> twice
-we will get autocomplete `cd /usr/local/bin/.things/success`
+`cd /usr/local/bin/.things/` without pressing _enter_, instead we press _tab_ twice to get an autocomplete 
 
-the command will not work since it is not a directory, so we should change it to `file` to see what this file is
+`cd /usr/local/bin/.things/success`
+
+but the above command will not work since it is not a directory, therefore we should change the command from `cd` to `file` to see what this file is
 
 `file /usr/local/bin/.things/success`
 
@@ -52,6 +53,7 @@ the command will not work since it is not a directory, so we should change it to
 It is a 64-bit binary file. Let's try running it:
 
 `cd /usr/local/bin/.things/`
+
 `./success`
 
 ![](./pic5.png)
@@ -71,12 +73,12 @@ After helping with his task, he will provide hints for the problem statement:
 We will need to download 2 things:
 
 1. [Event Query Language(eql)](https://github.com/endgameinc/eql) - for processing and querying the Sysmon logs.
-2. [Sysmon logs](./sysmon-data.json.zip) itself, given by the objective.
+2. [Sysmon logs](./sysmon-data.json.zip), given by the objective.
 
 on Kali linux, you can install eql easily using the following command:
 `pip3 install eql`
 
-unzip the Sysmon logs. Good thing is the logs are already normalised, else will need to use `eqllib` to convert the data to a normalised form.
+unzip the Sysmon logs. Good thing is the logs are already normalised, otherwise we will need to use `eqllib` to convert the data to a normalised form.
 
 To find the information we need, we first look for `process_name='lsass.exe' or parent_process = 'lsass.exe'`, as given in the problem statement:
 
