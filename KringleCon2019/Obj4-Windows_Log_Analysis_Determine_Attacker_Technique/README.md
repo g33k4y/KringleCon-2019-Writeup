@@ -6,6 +6,8 @@
 
 > Using [these normalized Sysmon logs](./sysmon-data.json.zip), identify the tool the attacker used to retrieve domain password hashes from the lsass.exe process. For hints on achieving this objective, please visit Hermey Hall and talk with SugarPlum Mary.
 
+td:lr Answer: **ntdsutil**
+
 ===============================================================================
 ## Solution(hint):
 
@@ -58,11 +60,36 @@ Got it! :)
 
 ## Solution(main problem):
 
+**this is done using Kali Linux**
+
 After helping with his task, he will provide hints for the problem statement:
 
 > [EQL Threat Hunting](https://pen-testing.sans.org/blog/2019/12/10/eql-threat-hunting/)
 
 > [Sysmon By Carlos Perez](https://www.darkoperator.com/blog/2014/8/8/sysinternals-sysmon)
 
+We will need to download 2 things:
+
+1. [Event Query Language(eql)](https://github.com/endgameinc/eql) - for processing and querying the Sysmon logs.
+2. [Sysmon logs](./sysmon-data.json.zip) itself, given by the objective.
+
+on Kali linux, you can install eql easily using the following command:
+`pip3 install eql`
+
+unzip the Sysmon logs. Good thing is the logs are already normalised, else will need to use `eqllib` to convert the data to a normalised form.
+
+To find the information we need, we first look for `process_name='lsass.exe' or parent_process = 'lsass.exe'`, as given in the problem statement:
+
+`eql query -f sysmon-data.json "any where process_name='lsass.exe' or parent_process_name='lsass.exe'" | jq`
+
+![](./pic6.png)
+
+we will get a logon_id which uses lsass.exe. So let's pivot from there to see what else the user did:
+
+`eql query -f sysmon-data.json "any where logon_id=999" | jq`
+
+![](./pic7.png)
+
+Here we can see that in the last process, the user uses the ntdsutil.exe to create an accessible backup of the domain password hashes. So we got our answer: **ntdsutil**
 
 
