@@ -47,7 +47,7 @@ then re-run the DeepblueCLI again. (Will take a while for DeepBlueCLI to analyse
 
 Looking through the logs, we will see that only 3 accounts has success logons, the rest failed. 
 
-![](./pic1.png)
+![](./res/pic1.png)
 
 Answer: **supatree**
 

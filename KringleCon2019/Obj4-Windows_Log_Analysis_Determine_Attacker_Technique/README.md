@@ -19,12 +19,12 @@ hint given for this sub-problem:
 
 > Green words matter, files must be found, and the terminal's $PATH matters.
 
-![](./pic1.png)
+![](./res/pic1.png)
 
 First let's try the `ls` command and see what's the issue:
 
 
-![](./pic2.png)
+![](./res/pic2.png)
 
 Ok it is not working as expected. 
 Likely the command is hidden at another location.
@@ -36,7 +36,7 @@ The fake `ls` command is found at `/usr/local/bin/ls`.
 
 `cd /usr/local/bin/` without pressing <enter>, press <tab> twice
 
-![](./pic3.png)
+![](./res/pic3.png)
 
 interesting, there's a hidden folder `.things/` at the same location, we should look within.
 
@@ -48,7 +48,7 @@ but the above command will not work since it is not a directory, therefore we sh
 
 `file /usr/local/bin/.things/success`
 
-![](./pic4.png)
+![](./res/pic4.png)
 
 It is a 64-bit binary file. Let's try running it:
 
@@ -56,7 +56,7 @@ It is a 64-bit binary file. Let's try running it:
 
 `./success`
 
-![](./pic5.png)
+![](./res/pic5.png)
 
 Got it! :)
 
@@ -84,13 +84,13 @@ To find the information we need, we first look for `process_name='lsass.exe' or 
 
 `eql query -f sysmon-data.json "any where process_name='lsass.exe' or parent_process_name='lsass.exe'" | jq`
 
-![](./pic6.png)
+![](./res/pic6.png)
 
 we will get a logon_id which uses lsass.exe. So let's pivot from there to see what else the user did:
 
 `eql query -f sysmon-data.json "any where logon_id=999" | jq`
 
-![](./pic7.png)
+![](./res/pic7.png)
 
 Here we can see that in the last process, the user uses the ntdsutil.exe to create an accessible backup of the domain password hashes. So we got our answer: **ntdsutil**
 
