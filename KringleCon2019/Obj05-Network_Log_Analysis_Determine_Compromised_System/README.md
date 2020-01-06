@@ -34,6 +34,8 @@ First clue:
 `history | Format-Table -Autosize -Wrap`:  
 ![](./res/pic4.png)
 
+At line 7, we get the angle value: 65.5
+
 Look for environment variables. No clue in standard variables:  
 `Get-ChildItem env: | Format-Table -Wrap`  
 ![](./res/pic5.png)
@@ -78,7 +80,19 @@ Kill process in order:
 
 `cd /etc`  
 `$file = Get-ChildItem /etc -File -Recurse -Name "*.xml"` --event log found  
+`type $file | Select-String gas`:  
+![](./res/pic12.png)
 
+We got all our values, so now to change the values on the laser:  
+`Invoke-WebRequest -Uri http://localhost:1225/api/off`
+`Invoke-WebRequest -Uri http://localhost:1225/api/refraction?val=1.867`
+`Invoke-WebRequest -Uri http://localhost:1225/api/temperature?val=-33.5`
+`Invoke-WebRequest -Uri http://localhost:1225/api/angle?val=65.5`
+`$postParams=@{O=6;H=7;He=3;N=4;Ne=22;Ar=11;Xe=10;F=20;Kr=8;Rn=9}`
+`Invoke-WebRequest -Uri http://localhost:1225/api/gas -Method POST -Body $postParams`
+`Invoke-WebRequest -Uri http://localhost:1225/api/on`
+`Invoke-WebRequest -Uri http://localhost:1225/api/output`:  
+![](./res/pic13.png)
 
 
 
