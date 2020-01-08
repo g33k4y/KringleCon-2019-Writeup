@@ -4,7 +4,7 @@
 Difficulty: 2/5  
 > The attacks don't stop! Can you help identify the IP address of the malware-infected system using these Zeek logs? For hints on achieving this objective, please visit the Laboratory and talk with Sparkle Redberry.
 
-td:lr Answer: **ntdsutil**
+td:lr Answer: **192.168.134.130**
 
 ===============================================================================
 ## Solution(hint):
@@ -94,8 +94,17 @@ We got all our values, so now to change the values on the laser:
 `Invoke-WebRequest -Uri http://localhost:1225/api/output`:  
 ![](./res/pic13.png)
 
+## Solution(main):
 
+Download the zeeklogs provided in the objectives.  
+Extract the .zip. Navigate within the ElfU folder and open the index.html file using a web browser:  
+![](./res/pic14.png)
 
+Within contains several data logs, like `Beacons`, `DNS`, `BL Hostnames`, `User Agents`.  
+Click on `Beacons`, which is sorted by Score. With the highest score, The source is the malware-infected system that is performing exfiltration:  
+![](./res/pic15.png)
+
+Answer: **192.168.134.130**
 
 
 
