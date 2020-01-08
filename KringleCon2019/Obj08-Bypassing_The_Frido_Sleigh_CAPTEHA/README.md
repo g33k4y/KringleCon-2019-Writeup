@@ -46,4 +46,8 @@ Since we have sudo permission to run `chattr`, we can unset the -i flag and copy
 ![](./res/pic5.png)
 
 
+## Solution(main):
 
+Solving the hint problem will give us the following hint:
+
+> [Machine Learning Use Cases for Cyber Security](https://www.youtube.com/watch?v=jmVPLwjm_zs&feature=youtu.be)
